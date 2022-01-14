@@ -2,17 +2,31 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from ipywidgets import interact
+from matplotlib.colors import ListedColormap, LinearSegmentedColormap
 
 
-def Heatmap(*matrix, scale=1.0, cbar = False, cmap="nipy_spectral", **kwargs):
+def gradient(colors=[], ranges=[], name=""):
+    return LinearSegmentedColormap.from_list(name, list(zip(ranges, colors)))
+
+
+def colors(colors=[], name=""):
+    return ListedColormap(colors, name=name)
+
+
+islands = gradient(
+    name="islands",
+    colors=['#2B3A67', '#0E79B2', '#8F754F', '#41521F', '#256D1B'],
+    ranges=[0.0, 0.45, 0.5, 0.6, 1.0])
+
+
+def Heatmap(*matrix, scale=1.0, cbar=False, cmap=islands, **kwargs):
     "Create one or multiple heatmaps and arrange them into a row"
-    shape = np.shape(matrix)
-    #assert(len(shape) == 3)
 
     # make grid
-    fig, axs = plt.subplots(ncols=shape[0])
+    shape = np.shape(matrix)[0]
+    fig, axs = plt.subplots(ncols=shape)
     fig.dpi = 100 * scale
-    if np.shape(matrix)[0] == 1:
+    if shape == 1:
         axs = [axs]
 
     # render heatmaps
@@ -22,5 +36,13 @@ def Heatmap(*matrix, scale=1.0, cbar = False, cmap="nipy_spectral", **kwargs):
                     xticklabels=False, cbar=cbar, **kwargs)
 
 
-def Noise(noise_function, scale=1.0, **kwargs):
-    interact(lambda **kwargs: Heatmap(noise_function(**kwargs)), **kwargs)
+def Noise(noise_function, **kwargs):
+    """Create interactive heatmap.
+    Every matched keyword argument is passed to the noise function.
+    Arguments that failed to match are passed to the heatmap instead.
+    """
+
+    tokens = noise_function.__code__.co_varnames
+    fargs = {k: v for k, v in kwargs.items() if k in tokens}
+    hargs = dict(set(kwargs.items()) - set(fargs.items()))
+    interact(lambda **fargs: Heatmap(noise_function(**fargs), **hargs), **fargs)
