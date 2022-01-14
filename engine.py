@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from ipywidgets import interact
 from matplotlib.colors import ListedColormap, LinearSegmentedColormap
+from matplotlib.cm import register_cmap
 
 
 def gradient(colors=[], ranges=[], name=""):
@@ -18,6 +19,24 @@ islands = gradient(
     colors=["#2B3A67", "#0E79B2", "#8F754F", "#41521F", "#256D1B"],
     ranges=[0.0, 0.45, 0.5, 0.6, 1.0],
 )
+
+mountains = gradient(
+    name="mountains",
+    colors=[
+        "#2B3A67",
+        "#0E79B2",
+        "#8F754F",
+        "#41521F",
+        "#256D1B",
+        "#E1C16E",
+        "#CD7F32",
+        "#EADDCA",
+    ],
+    ranges=[0.0, 0.35, 0.40, 0.55, 0.65, 0.75, 0.85, 1.0],
+)
+
+register_cmap(name="mountains",cmap=mountains)
+
 
 
 def Heatmap(*matrix, scale=1.0, cbar=False, cmap=islands, **kwargs):
