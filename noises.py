@@ -1,5 +1,5 @@
 import numpy as np
-from random import random
+from random import randint
 from math import floor, sin
 
 
@@ -34,22 +34,22 @@ def perlin(distance, resolution):
     return generate_perlin_noise_2d((resolution*distance, resolution*distance), (distance, distance))
 
 
-def worley(size, points=10): ...
-
-
-def D(A, B):
-    M = A.shape[0]
-    N = B.shape[0]
-
-    A_dots = (A*A).sum(axis=1).reshape((M, 1))*np.ones(shape=(1, N))
-    B_dots = (B*B).sum(axis=1)*np.ones(shape=(M, 1))
-    D_squared = A_dots + B_dots - 2*A.dot(B.T)
-
-    zero_mask = np.less(D_squared, 0.0)
-    D_squared[zero_mask] = 0.0
+def distances(A, B):
+    # smoking hot distance matrix :D
+    assert A.shape[1] == B.shape[1]
+    A_dots = np.sum(A**2, axis=1).reshape((-1, 1)) * np.ones(len(B))
+    B_dots = np.sum(B**2, axis=1) * np.ones((len(A), 1))
+    D_squared = A_dots + B_dots - 2*(A @ B.T)
     return np.sqrt(D_squared)
 
 
-arr = np.array([[0, 0], [1, 1], [2, 5]])
-arr2 = np.array([[0, 0], [1, 1], [5, 5]])
-print(D(arr, arr2))
+def worley(resolution, points=2, n=1):
+    assert resolution**2 > points
+    assert points > n and points > 0
+    assert n >= 1
+
+    ar = np.arange(resolution)
+    region = np.array(np.meshgrid(ar, ar)).T.reshape(-1, 2)
+    points = np.random.randint(resolution, size=(points, 2))
+    dists = distances(region, points)
+    return np.partition(dists, n)[:, n-1:n].flatten().reshape((resolution, resolution)) / resolution
