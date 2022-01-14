@@ -15,8 +15,9 @@ def colors(colors=[], name=""):
 
 islands = gradient(
     name="islands",
-    colors=['#2B3A67', '#0E79B2', '#8F754F', '#41521F', '#256D1B'],
-    ranges=[0.0, 0.45, 0.5, 0.6, 1.0])
+    colors=["#2B3A67", "#0E79B2", "#8F754F", "#41521F", "#256D1B"],
+    ranges=[0.0, 0.45, 0.5, 0.6, 1.0],
+)
 
 
 def Heatmap(*matrix, scale=1.0, cbar=False, cmap=islands, **kwargs):
@@ -31,9 +32,16 @@ def Heatmap(*matrix, scale=1.0, cbar=False, cmap=islands, **kwargs):
 
     # render heatmaps
     for i, ax in enumerate(axs):
-        ax.axis('scaled')
-        sns.heatmap(matrix[i], ax=ax, cmap=cmap, yticklabels=False,
-                    xticklabels=False, cbar=cbar, **kwargs)
+        ax.axis("scaled")
+        sns.heatmap(
+            matrix[i],
+            ax=ax,
+            cmap=cmap,
+            yticklabels=False,
+            xticklabels=False,
+            cbar=cbar,
+            **kwargs
+        )
 
 
 def Noise(noise_function, **kwargs):
@@ -46,3 +54,13 @@ def Noise(noise_function, **kwargs):
     fargs = {k: v for k, v in kwargs.items() if k in tokens}
     hargs = dict(set(kwargs.items()) - set(fargs.items()))
     interact(lambda **fargs: Heatmap(noise_function(**fargs), **hargs), **fargs)
+
+
+def WeightSum(weights, noises):
+    """Weight sum of noises"""
+    assert len(weights) == len(noises)
+
+    newNoise = np.zeros(noises[0].shape)
+    for weight, noise in zip(weights, noises):
+        newNoise += weight * noise
+    return newNoise
