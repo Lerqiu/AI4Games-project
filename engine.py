@@ -7,11 +7,15 @@ from matplotlib.cm import register_cmap
 
 
 def gradient(colors=[], ranges=[], name=""):
-    return LinearSegmentedColormap.from_list(name, list(zip(ranges, colors)))
+    cmap = LinearSegmentedColormap.from_list(name, list(zip(ranges, colors)))
+    register_cmap(name=name, cmap=cmap)
+    return cmap
 
 
 def colors(colors=[], name=""):
-    return ListedColormap(colors, name=name)
+    cmap = ListedColormap(colors, name=name)
+    register_cmap(name=name, cmap=cmap)
+    return cmap
 
 
 islands = gradient(
@@ -23,20 +27,13 @@ islands = gradient(
 mountains = gradient(
     name="mountains",
     colors=[
-        "#2B3A67",
-        "#0E79B2",
-        "#8F754F",
-        "#41521F",
-        "#256D1B",
-        "#E1C16E",
-        "#CD7F32",
-        "#EADDCA",
+        "#2B3A67", "#0E79B2",
+        "#8F754F", "#41521F",
+        "#256D1B", "#E1C16E",
+        "#CD7F32", "#EADDCA",
     ],
     ranges=[0.0, 0.35, 0.40, 0.55, 0.65, 0.75, 0.85, 1.0],
 )
-
-register_cmap(name="mountains",cmap=mountains)
-
 
 
 def Heatmap(*matrix, scale=1.0, cbar=False, cmap=islands, **kwargs):
