@@ -80,3 +80,6 @@ def WeightSum(weights, noises):
     for weight, noise in zip(weights, noises):
         newNoise += weight * noise
     return newNoise
+
+def CombineNoises(weights, noises):
+    return WeightSum(weights,noises)/sum(weights)
