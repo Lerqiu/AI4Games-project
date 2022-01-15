@@ -39,14 +39,14 @@ mountains = gradient(
 def Heatmap(*matrix, scale=1.0, cbar=False, cmap=islands, **kwargs):
     "Create one or multiple heatmaps and arrange them into a row"
 
-    # make grid
+    # Make grid
     shape = np.shape(matrix)[0]
     fig, axs = plt.subplots(ncols=shape)
     fig.dpi = 100 * scale
     if shape == 1:
         axs = [axs]
 
-    # render heatmaps
+    # Render heatmaps
     for i, ax in enumerate(axs):
         ax.axis("scaled")
         sns.heatmap(

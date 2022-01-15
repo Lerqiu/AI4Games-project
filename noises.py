@@ -1,14 +1,14 @@
 import numpy as np
-from noise import pnoise2
+from noise import pnoise2, snoise2
 from random import randint
 
 
-def perlin(resolution, octaves = 8, persistence = 5.0, lacunarity = 0.5, repeat = None, seed = None):
-    "wrapper for library perlin noise function"
+def __noise(noise_funtion, resolution, octaves = 8, persistence = 5.0, lacunarity = 0.5, repeat = None, seed = None):
+    "wrapper for library noise functions"
     assert(resolution >= 1)
     assert(octaves >= 1)
 
-    # settle some technicalities
+    # Settle some technicalities
     persistence += 1e-5
     lacunarity  += 1e-5
     if seed is None:
@@ -16,9 +16,9 @@ def perlin(resolution, octaves = 8, persistence = 5.0, lacunarity = 0.5, repeat 
     if repeat is None:
         repeat = resolution
     
-    # parameterize the noise function
+    # Parameterize the noise function
     def noise(x, y):
-        return pnoise2(x, y,
+        return noise_funtion(x, y,
             octaves = octaves,
             persistence = persistence,
             lacunarity = lacunarity,
@@ -31,6 +31,14 @@ def perlin(resolution, octaves = 8, persistence = 5.0, lacunarity = 0.5, repeat 
         for y in range(resolution)
     ])
 
+
+def simplex(resolution, octaves = 8, persistence = 5.0, lacunarity = 0.5, repeat = None, seed = None):
+    return __noise(snoise2, resolution, octaves=octaves, persistence=persistence, lacunarity=lacunarity, repeat=repeat, seed=seed)
+
+
+def perlin(resolution, octaves = 8, persistence = 5.0, lacunarity = 0.5, repeat = None, seed = None):
+    return __noise(pnoise2, resolution, octaves=octaves, persistence=persistence, lacunarity=lacunarity, repeat=repeat, seed=seed)
+    
 
 def generate_perlin_noise_2d(shape, res=(1, 1)):
     def f(t):
@@ -65,7 +73,7 @@ def smooth(distance, resolution):
 
 
 def distances(A, B):
-    # smoking hot distance matrix :D
+    # Smoking hot distance matrix :D
     assert A.shape[1] == B.shape[1]
     A_dots = np.sum(A**2, axis=1).reshape((-1, 1)) * np.ones(len(B))
     B_dots = np.sum(B**2, axis=1) * np.ones((len(A), 1))
