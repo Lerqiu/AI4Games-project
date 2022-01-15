@@ -75,11 +75,7 @@ def Noise(noise_function, **kwargs):
 def WeightSum(weights, noises):
     """Weight sum of noises"""
     assert len(weights) == len(noises)
-
-    newNoise = np.zeros(noises[0].shape)
-    for weight, noise in zip(weights, noises):
-        newNoise += weight * noise
-    return newNoise
+    return sum(weight * noise for weight, noise in zip(weights, noises))
 
 def CombineNoises(weights, noises):
     return WeightSum(weights,noises)/sum(weights)

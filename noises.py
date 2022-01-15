@@ -3,7 +3,7 @@ from noise import pnoise2
 from random import randint
 
 
-def perlin(resolution, octaves, persistence, lacunarity, repeat = None, seed = None):
+def perlin(resolution, octaves = 8, persistence = 5.0, lacunarity = 0.5, repeat = None, seed = None):
     "wrapper for library perlin noise function"
     assert(resolution >= 1)
     assert(octaves >= 1)
