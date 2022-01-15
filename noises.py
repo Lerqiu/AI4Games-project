@@ -141,7 +141,7 @@ def heat(resolution, temperature, x, y):
     return -region
 
 
-def simplex(size, seed=1234):
+def pure_simplex(size, seed=1234):
     opensimplex.seed(seed)
     value = np.zeros((size, size))
     for y in range(size):
