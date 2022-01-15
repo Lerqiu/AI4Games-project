@@ -1,4 +1,35 @@
 import numpy as np
+from noise import pnoise2
+from random import randint
+
+
+def perlin(resolution, octaves, persistence, lacunarity, repeat = None, seed = None):
+    "wrapper for library perlin noise function"
+    assert(resolution >= 1)
+    assert(octaves >= 1)
+
+    # settle some technicalities
+    persistence += 1e-5
+    lacunarity  += 1e-5
+    if seed is None:
+        seed = randint(1, 4389192)
+    if repeat is None:
+        repeat = resolution
+    
+    # parameterize the noise function
+    def noise(x, y):
+        return pnoise2(x, y,
+            octaves = octaves,
+            persistence = persistence,
+            lacunarity = lacunarity,
+            repeatx = repeat,
+            repeaty = repeat,
+            base = seed)
+
+    return np.array([
+        [noise(x, y) for x in range(resolution)]
+        for y in range(resolution)
+    ])
 
 
 def generate_perlin_noise_2d(shape, res=(1, 1)):
@@ -8,7 +39,8 @@ def generate_perlin_noise_2d(shape, res=(1, 1)):
     shape, res = np.array(shape), np.array(res)
     delta = res / shape
     d = shape // res
-    grid = np.mgrid[0:res[0]:delta[0], 0:res[1]                    :delta[1]].transpose(1, 2, 0) % 1
+    grid = np.mgrid[0:res[0]:delta[0], 0:res[1]
+        :delta[1]].transpose(1, 2, 0) % 1
     # Gradients
     angles = 2*np.pi*np.random.rand(res[0]+1, res[1]+1)
     gradients = np.dstack((np.cos(angles), np.sin(angles)))
@@ -28,7 +60,7 @@ def generate_perlin_noise_2d(shape, res=(1, 1)):
     return np.sqrt(2)*((1-t[:, :, 1])*n0 + t[:, :, 1]*n1)
 
 
-def perlin(distance, resolution):
+def smooth(distance, resolution):
     return generate_perlin_noise_2d((resolution*distance, resolution*distance), (distance, distance))
 
 
