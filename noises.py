@@ -1,6 +1,4 @@
 import numpy as np
-from random import randint
-from math import floor, sin
 
 
 def generate_perlin_noise_2d(shape, res=(1, 1)):
@@ -10,7 +8,7 @@ def generate_perlin_noise_2d(shape, res=(1, 1)):
     shape, res = np.array(shape), np.array(res)
     delta = res / shape
     d = shape // res
-    grid = np.mgrid[0:res[0]:delta[0], 0:res[1]:delta[1]].transpose(1, 2, 0) % 1
+    grid = np.mgrid[0:res[0]:delta[0], 0:res[1]                    :delta[1]].transpose(1, 2, 0) % 1
     # Gradients
     angles = 2*np.pi*np.random.rand(res[0]+1, res[1]+1)
     gradients = np.dstack((np.cos(angles), np.sin(angles)))
@@ -53,3 +51,20 @@ def worley(resolution, points=2, n=1):
     points = np.random.randint(resolution, size=(points, 2))
     dists = distances(region, points)
     return np.partition(dists, n)[:, n-1:n].flatten().reshape((resolution, resolution)) / resolution
+
+
+def heat(resolution, x, y, temperature):
+    assert 30 >= temperature >= 0
+    assert resolution >= x >= 0
+    assert resolution >= y >= 0
+
+    ar = np.arange(resolution)
+    rx, ry = np.array(np.meshgrid(ar, ar))
+    rx = np.abs(rx - x)
+    ry = np.abs(ry - y)
+    dists = np.sqrt(rx**2 + ry**2)
+
+    region = 2 * dists / np.max(dists) - 1
+    region[region < 1] -= temperature - 20
+    region /= np.max(np.abs(region))
+    return -region
