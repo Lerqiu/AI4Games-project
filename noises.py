@@ -53,7 +53,7 @@ def worley(resolution, points=2, n=1):
     return np.partition(dists, n)[:, n-1:n].flatten().reshape((resolution, resolution)) / resolution
 
 
-def heat(resolution, x, y, temperature):
+def heat(resolution, temperature, x, y):
     assert 30 >= temperature >= 0
     assert resolution >= x >= 0
     assert resolution >= y >= 0
