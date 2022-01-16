@@ -2,13 +2,23 @@ import numpy as np
 
 
 def cells(matrix):
+    """More compact way of traversing a matrix.
+
+        >> for y, x in cells(matrix): ...
+    """
     n, m, *_ = matrix.shape
     for y in range(n):
         for x in range(m):
             yield y, x
 
 
+def norm(matrix, axis=None):
+    """Normalize matrix into a [-1.0, 1.0] range of values."""
+    return matrix / np.max(np.abs(matrix), axis=axis)
+
+
 def vectorize(matrix, intensity=0.01, time=40, alpha=1.0, seed=0):
+    """Create vector field from matrix."""
     assert(len(matrix.shape) == 2)
     assert(intensity >= 0)
     assert(time >= 0)
@@ -34,3 +44,13 @@ def vectorize(matrix, intensity=0.01, time=40, alpha=1.0, seed=0):
             particles[p] += field[pos]
             particles %= matrix.shape
     return trail**alpha / np.max(trail)
+
+
+def weight_sum(weights, noises):
+    """Weight sum of noises."""
+    assert len(weights) == len(noises)
+    return sum(weight * noise for weight, noise in zip(weights, noises))
+
+
+def combine_noises(weights, noises):
+    return weight_sum(weights, noises)/sum(weights)
