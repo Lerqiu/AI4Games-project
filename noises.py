@@ -4,13 +4,7 @@ from random import randint
 import opensimplex
 
 
-def __noise(noise_funtion,
-            resolution,
-            octaves=8,
-            persistence=5.0,
-            lacunarity=0.5,
-            repeat=None,
-            seed=None):
+def __noise(noise_funtion, resolution, octaves=8, persistence=5.0, lacunarity=0.5, repeat=None, seed=None):
     "wrapper for library noise functions"
     assert (resolution >= 1)
     assert (octaves >= 1)
@@ -25,8 +19,7 @@ def __noise(noise_funtion,
 
     # Parameterize the noise function
     def noise(x, y):
-        return noise_funtion(x,
-                             y,
+        return noise_funtion(x, y,
                              octaves=octaves,
                              persistence=persistence,
                              lacunarity=lacunarity,
@@ -69,7 +62,6 @@ def perlin(resolution,
 
 
 def generate_perlin_noise_2d(shape, res=(1, 1)):
-
     def f(t):
         return 6 * t**5 - 15 * t**4 + 10 * t**3
 
