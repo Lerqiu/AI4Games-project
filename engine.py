@@ -4,6 +4,7 @@ import seaborn as sns
 from ipywidgets import interact
 from matplotlib.colors import ListedColormap, LinearSegmentedColormap
 from matplotlib.cm import register_cmap
+from utilities import vectorize
 
 
 def gradient(colors=[], ranges=[], name=""):
@@ -37,7 +38,7 @@ mountains = gradient(
 
 
 def Heatmap(*matrix, scale=1.0, cbar=False, cmap=islands, **kwargs):
-    "Create one or multiple heatmaps and arrange them into a row"
+    """Create one or multiple heatmaps and arrange them into a row."""
 
     # Make grid
     shape = np.shape(matrix)[0]
@@ -60,6 +61,23 @@ def Heatmap(*matrix, scale=1.0, cbar=False, cmap=islands, **kwargs):
         )
 
 
+def Field(*matrix, time=20, alpha=1.0, seed=0, scale=1.0, cbar=False, cmap='twilight', **kwargs):
+    """Visualise matrix as a vector field.
+
+    Trailing effects are achieved by placing random particles inside the field
+    and the simulating their movements.
+
+        time - running time of the simulation
+
+        alpha - weak trail relevance, the lower the value the more information is preserved
+
+        seed - allows for control of the random process
+    """
+    matrices = [vectorize(m, time=time, alpha=alpha, seed=seed)
+                for m in matrix]
+    Heatmap(*matrices, scale=scale, cbar=cbar, cmap=cmap, **kwargs)
+
+
 def Noise(noise_function, **kwargs):
     """Create interactive heatmap.
     Every matched keyword argument is passed to the noise function.
@@ -73,9 +91,10 @@ def Noise(noise_function, **kwargs):
 
 
 def WeightSum(weights, noises):
-    """Weight sum of noises"""
+    """Weight sum of noises."""
     assert len(weights) == len(noises)
     return sum(weight * noise for weight, noise in zip(weights, noises))
 
+
 def CombineNoises(weights, noises):
-    return WeightSum(weights,noises)/sum(weights)
+    return WeightSum(weights, noises)/sum(weights)
