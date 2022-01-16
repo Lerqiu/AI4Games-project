@@ -12,6 +12,11 @@ def cells(matrix):
             yield y, x
 
 
+def softmax(matrix):
+    e = np.exp(matrix - np.max(matrix))
+    return e/e.sum()
+
+
 def norm(matrix, axis=None):
     """Normalize matrix into a [-1.0, 1.0] range of values."""
     return matrix / np.max(np.abs(matrix), axis=axis)

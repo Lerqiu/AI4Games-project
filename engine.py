@@ -22,13 +22,14 @@ def colors(colors=[], name=""):
     return cmap
 
 
-islands = gradient(
+gradient(
     name="islands",
     colors=["#2B3A67", "#0E79B2", "#8F754F", "#41521F", "#256D1B"],
     ranges=[0.0, 0.45, 0.5, 0.6, 1.0],
 )
 
-mountains = gradient(
+
+gradient(
     name="mountains",
     colors=[
         "#2B3A67", "#0E79B2",
@@ -40,7 +41,21 @@ mountains = gradient(
 )
 
 
-def Heatmap(*matrix, scale=1.0, cbar=False, cmap=islands, **kwargs):
+gradient(
+    name="snowpeaks",
+    colors=["#2B3A67", "#0E79B2", "#302B27", "#E0E2DB", "#545454", "#302B27"],
+    ranges=[0.0, 0.45, 0.5, 0.6, 0.85, 1.0],
+)
+
+
+gradient(
+    name="frostfire",
+    colors=["#96031A", "#A63C06", "#302B27", "#E0E2DB", "#1B1B1E"],
+    ranges=[0.0, 0.45, 0.5, 0.55, 1.0],
+)
+
+
+def Heatmap(*matrix, scale=1.0, cbar=False, cmap='islands', **kwargs):
     """Create one or multiple heatmaps and arrange them into a row."""
 
     # Make grid
