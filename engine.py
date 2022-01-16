@@ -7,6 +7,9 @@ from matplotlib.cm import register_cmap
 from utilities import vectorize
 
 
+plt.rcParams['ytick.labelcolor'] = '#96a7b0'
+
+
 def gradient(colors=[], ranges=[], name=""):
     cmap = LinearSegmentedColormap.from_list(name, list(zip(ranges, colors)))
     register_cmap(name=name, cmap=cmap)
@@ -44,6 +47,8 @@ def Heatmap(*matrix, scale=1.0, cbar=False, cmap=islands, **kwargs):
     shape = np.shape(matrix)[0]
     fig, axs = plt.subplots(ncols=shape)
     fig.dpi = 100 * scale
+    fig.set_facecolor('white')
+    fig.frameon = False
     if shape == 1:
         axs = [axs]
 
@@ -57,6 +62,7 @@ def Heatmap(*matrix, scale=1.0, cbar=False, cmap=islands, **kwargs):
             yticklabels=False,
             xticklabels=False,
             cbar=cbar,
+            cbar_kws={"pad": 0.04, "shrink": 1 / len(axs)},
             **kwargs
         )
 
