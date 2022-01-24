@@ -1,7 +1,10 @@
-# AI4Games-project
+# Description
+Texture generation centered around some classic noise functions.
+The project focuses mostly on terrain textures but isn't limited to those.
 
-## TODO
-1) Mapa z obiecujących elementów (podział na obszary gór, dolin, jezior i późniejsze złożenie razem) ✅
-2) Nakładanie warstw z biomem (np. by poszarpać góry) ✅
-3) Renderowanie 3D ✅
-4) Rzeki i automaty komórkowe
+# Project goals
+- create islands and swamps
+- split generated terrain into naturally located biomes
+- texturize the terrain accordingly
+
+🥂
