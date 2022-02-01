@@ -3,11 +3,10 @@ marp: true
 theme: uncover
 class: invert
 paginate: true
-#background: #fff
-#backgroundImage: url('https://marp.app/assets/hero-background.svg')
+backgroundImage: url('https://media.discordapp.net/attachments/654703064279941140/934997629404852234/wp4831645.png')
 ---
 
-![bg left:40% 80%](https://marp.app/assets/mark.svg)
+![bg left:40% 80%](https://media.discordapp.net/attachments/654703064279941140/934999099990736896/8-abstract-feather-setsiri-silapasuwanchai-transparent.png)
 
 # **Noise exploration**
 Procedurally Generated Textures Presentation
@@ -17,19 +16,13 @@ https://github.com/Lerqiu/AI4Games-project
 ---
 
 # Noises
-Noises are very popular amongst texture generation techniques. For the most part we used some combination of the noises listed below:
-
-- Perlin
-- Simplex
-- Worley
+Noises are very popular amongst texture generation techniques. For the most part we used some combination of Perlin, Simplex and Worley noises.
 
 ---
 
 # Great things have small beginnings :)
 
 ---
-
-
 
 Simple perlin              |  Color mapped
 :-------------------------:|:-------------------------:
@@ -60,19 +53,61 @@ ___
 
 ---
 
-# Lavalakes
+# Lava Lakes
 ![width:1000px drop-shadow:0,5px,10px,rgba(0,0,0,.4)](https://media.discordapp.net/attachments/654703064279941140/934969952069374082/unknown.png)
 
 ---
 
-```markdown		
-# Slide 1
-
-foobar
+Fractalized                |  Centralized			   |  Abstract
+:-------------------------:|:-------------------------:|:-------------------------:
+![width:350px](https://media.discordapp.net/attachments/654703064279941140/934970652262297660/unknown.png)  |  ![width:350px](https://media.discordapp.net/attachments/654703064279941140/934967216435236864/unknown.png)  | ![width:350px](https://media.discordapp.net/attachments/654703064279941140/934966893255721020/unknown.png)
 
 ---
 
-# Slide 2
+# Vector Fields
+![bg](https://media.discordapp.net/attachments/654703064279941140/934973626204168192/unknown.png)
 
-foobar
-```
+---
+
+Pixel Art                |  Feathers			   |  Rivers
+:-------------------------:|:-------------------------:|:-------------------------:
+![width:350px](https://media.discordapp.net/attachments/654703064279941140/934973814897512448/unknown.png)  |  ![width:350px](https://media.discordapp.net/attachments/654703064279941140/934973715828056144/unknown.png)  | ![width:350px](https://media.discordapp.net/attachments/654703064279941140/934973530402095154/unknown.png)
+
+---
+
+Vector fields can be created by assigning each vector in the vector space some direction relative to the vector scalar value. If enough particles is then dropped onto said vector field a fur-like effect can be achieved by tracing movements of each of the particles.
+![bg](https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/VectorField.svg/1200px-VectorField.svg.png)
+
+---
+
+# Gravity well example
+Centered mass              | Vector field
+:-------------------------:|:-------------------------:
+![width:350px](https://media.discordapp.net/attachments/654703064279941140/934978453026009139/unknown.png)  |  ![width:350px](https://media.discordapp.net/attachments/654703064279941140/934973851257933834/unknown.png)
+
+---
+
+# Simplex noise
+![bg](https://media.discordapp.net/attachments/654703064279941140/934982364038332496/unknown.png)
+
+---
+
+Simplex                    |  Heat			           |  Result
+:-------------------------:|:-------------------------:|:-------------------------:
+![width:350px](https://media.discordapp.net/attachments/654703064279941140/934985343869018132/unknown.png)  |  ![width:350px](https://media.discordapp.net/attachments/654703064279941140/934985363225714778/unknown.png)  | ![width:350px](https://media.discordapp.net/attachments/654703064279941140/934985392640393287/unknown.png)
+
+---
+
+# Moisture levels
+
+Height                     |  Moisture			       |  Texture
+:-------------------------:|:-------------------------:|:-------------------------:
+![width:350px](https://media.discordapp.net/attachments/654703064279941140/934985502237540382/unknown.png)  |  ![width:350px](https://media.discordapp.net/attachments/654703064279941140/934985533355085904/unknown.png)  | ![width:350px](https://media.discordapp.net/attachments/654703064279941140/934985606935756820/unknown.png)
+
+---
+
+![bg](https://media.discordapp.net/attachments/654703064279941140/934990859408142366/unknown.png?width=1879&height=1532)
+
+---
+
+# End
