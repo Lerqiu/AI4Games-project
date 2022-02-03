@@ -103,11 +103,12 @@ def distances(A, B):
     return np.sqrt(D_squared)
 
 
-def worley(resolution, points=2, n=1):
+def worley(resolution, points=2, n=1, seed = None):
     assert resolution**2 > points
     assert points > n and points > 0
     assert n >= 1
 
+    np.random.seed(randint(0, 12345) if seed is None else seed)
     ar = np.arange(resolution)
     region = np.array(np.meshgrid(ar, ar)).T.reshape(-1, 2)
     points = np.random.randint(resolution, size=(points, 2))

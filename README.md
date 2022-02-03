@@ -7,4 +7,10 @@ The project focuses mostly on terrain textures but isn't limited to those.
 - split generated terrain into naturally located biomes
 - texturize the terrain accordingly
 
+- sectors
+- smoothers
+- heights
+- biomes
+- rivers???
+
 🥂

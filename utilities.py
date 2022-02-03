@@ -1,5 +1,5 @@
 import numpy as np
-
+import matplotlib
 
 def cells(matrix):
     """More compact way of traversing a matrix.
@@ -17,10 +17,9 @@ def softmax(matrix):
     return e/e.sum()
 
 
-def norm(matrix, axis=None):
-    """Normalize matrix into a [-1.0, 1.0] range of values."""
-    return matrix / np.max(np.abs(matrix), axis=axis)
-
+def norm(matrix):
+    """Normalize matrix into a [0.0, 1.0] range of values."""
+    return (matrix - np.min(matrix)) / (np.max(matrix) - np.min(matrix))
 
 def vectorize(matrix, intensity=0.01, time=40, alpha=1.0, seed=0):
     """Create vector field from matrix."""
@@ -51,6 +50,10 @@ def vectorize(matrix, intensity=0.01, time=40, alpha=1.0, seed=0):
     return trail**alpha / np.max(trail)
 
 
+def compose(color1, color2, ratio=0.5):
+	return ratio * np.array(color1) + (1-ratio) * np.array(color2) 
+
+
 def weight_sum(weights, noises):
     """Weight sum of noises."""
     assert len(weights) == len(noises)
@@ -59,3 +62,7 @@ def weight_sum(weights, noises):
 
 def combine_noises(weights, noises):
     return weight_sum(weights, noises)/sum(weights)
+
+
+def Colormap(cmap='islands'):
+    return matplotlib.cm.get_cmap(cmap)

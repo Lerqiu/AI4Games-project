@@ -8,6 +8,7 @@ from utilities import vectorize
 
 
 plt.rcParams['ytick.labelcolor'] = '#96a7b0'
+plt.rcParams['xtick.labelcolor'] = '#96a7b0'
 
 
 def gradient(colors=[], ranges=[], name=""):
@@ -38,6 +39,13 @@ gradient(
         "#CD7F32", "#EADDCA",
     ],
     ranges=[0.0, 0.35, 0.40, 0.55, 0.65, 0.75, 0.85, 1.0],
+)
+
+
+gradient(
+    name="forests",
+    colors=["#C0C781", "#256D1B", "#04471C", "#1E2F23"],
+    ranges=[0.0, 0.2, 0.5, 1.0],
 )
 
 
@@ -109,6 +117,14 @@ def Noise(noise_function, **kwargs):
     fargs = {k: v for k, v in kwargs.items() if k in tokens}
     hargs = dict(set(kwargs.items()) - set(fargs.items()))
     interact(lambda **fargs: Heatmap(noise_function(**fargs), **hargs), **fargs)
+
+
+def Image(noise_function, scale=1.0, **kwargs):
+    def wrap(**kwargs):
+        _, ax = plt.subplots(figsize=(16, 16), dpi=100 * scale)
+        ax.imshow(noise_function(**kwargs))
+
+    interact(lambda **kwargs: wrap(**kwargs), **kwargs)
 
 
 def WeightSum(weights, noises):
