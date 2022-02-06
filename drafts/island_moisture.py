@@ -53,7 +53,7 @@ def getTexture(SEED=1234,RESOLUTION=500,fragments_n=2,fragment_mass=2.5,moisture
     def worley_land_mass(points=2, cutoff=0, radius=1, seed=1234):
         return norm(cut(-worley(resolution=RESOLUTION, points=points, n=1, seed=seed) + 1, cutoff) ** radius)
 
-    isLandBoundares = worley_land_mass(fragments_n,0.5,fragment_mass,SEED)
+    isLandBoundares = worley_land_mass(fragments_n,0,fragment_mass,SEED)
 
     terainNoises = CombineNoises(
     [1.0,0.4,0.1],
